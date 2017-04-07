@@ -1,0 +1,254 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="http://www.github.com/diracdeltas/niceware"
+
+    >niceware (v1.0.4)</a>
+</h1>
+<h4>Utility for generating memorable passwords and converting random bytes into human-readable phrases</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.niceware">module niceware</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.niceware.bytesToPassphrase">
+            function <span class="apidocSignatureSpan">niceware.</span>bytesToPassphrase
+            <span class="apidocSignatureSpan">(bytes)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.niceware.generatePassphrase">
+            function <span class="apidocSignatureSpan">niceware.</span>generatePassphrase
+            <span class="apidocSignatureSpan">(size)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.niceware.passphraseToBytes">
+            function <span class="apidocSignatureSpan">niceware.</span>passphraseToBytes
+            <span class="apidocSignatureSpan">(words)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.niceware" id="apidoc.module.niceware">module niceware</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.niceware.bytesToPassphrase" id="apidoc.element.niceware.bytesToPassphrase">
+        function <span class="apidocSignatureSpan">niceware.</span>bytesToPassphrase
+        <span class="apidocSignatureSpan">(bytes)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">bytesToPassphrase = function (bytes) {
+  // XXX: Uint8Array should only be used when this is called in the browser
+  // context.
+  if (!Buffer.isBuffer(bytes) &#x26;&#x26;
+    !(typeof window === &#x27;object&#x27; &#x26;&#x26; bytes instanceof window.Uint8Array)) {
+    throw new Error(&#x27;Input must be a Buffer or Uint8Array.&#x27;)
+  }
+  if (bytes.length % 2 === 1) {
+    throw new Error(&#x27;Only even-sized byte arrays are supported.&#x27;)
+  }
+  const words = []
+  for (var entry of bytes.entries()) {
+    let index = entry[0]
+    let byte = entry[1]
+    let next = bytes[index + 1]
+    if (index % 2 === 0) {
+      let wordIndex = byte * 256 + next
+      let word = wordlist[wordIndex]
+      if (!word) {
+        throw new Error(&#x27;Invalid byte encountered&#x27;)
+      } else {
+        words.push(word)
+      }
+    }
+  }
+  return words
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+Feder. https://chrome.google.com/webstore/detail/niceware-password/dhnichgmciickpnnnhfcljljnfomadag
+
+## Docs
+
+NOTE: When used in the browser, `Buffer` is replaced with `window.Uint8Array`.
+
+* [niceware](#exp_module_niceware--niceware) ⏏
+    * [.<span class="apidocCodeKeywordSpan">bytesToPassphrase</span>(bytes)](#module_niceware--niceware.bytesToPassphrase) ⇒ &#x3c
+;code&#x3e;Array.&#x26;lt;string&#x26;gt;&#x3c;/code&#x3e;
+    * [.passphraseToBytes(words)](#module_niceware--niceware.passphraseToBytes) ⇒ &#x3c;code&#x3e;Buffer&#x3c;/code&#x3e;
+    * [.generatePassphrase(size)](#module_niceware--niceware.generatePassphrase) ⇒ &#x3c;code&#x3e;Array.&#x26;lt;string&#x26;gt
+;&#x3c;/code&#x3e;
+
+&#x3c;a name=&#x22;exp_module_niceware--niceware&#x22;&#x3e;&#x3c;/a&#x3e;
+
+### niceware ⏏
+**Kind**: Exported constant
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.niceware.generatePassphrase" id="apidoc.element.niceware.generatePassphrase">
+        function <span class="apidocSignatureSpan">niceware.</span>generatePassphrase
+        <span class="apidocSignatureSpan">(size)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">generatePassphrase = function (size) {
+  if (typeof size !== &#x27;number&#x27; || size &#x3c; 0 || size &#x3e; MAX_PASSPHRASE_SIZE) {
+    throw new Error(`Size must be between 0 and ${MAX_PASSPHRASE_SIZE} bytes.`)
+  }
+  const bytes = randomBytes(size)
+  return niceware.bytesToPassphrase(bytes)
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+To generate an 8-byte passphrase:
+
+```
+const niceware = require(&#x27;niceware&#x27;)
+
+// The number of bytes must be even
+const passphrase = niceware.<span class="apidocCodeKeywordSpan">generatePassphrase</span>(8)
+
+// Result: [ &#x27;deathtrap&#x27;, &#x27;stegosaur&#x27;, &#x27;nilled&#x27;, &#x27;nonscheduled&#x27; ]
+```
+
+## Usage in browser
+
+To use Niceware in modern browsers, include
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.niceware.passphraseToBytes" id="apidoc.element.niceware.passphraseToBytes">
+        function <span class="apidocSignatureSpan">niceware.</span>passphraseToBytes
+        <span class="apidocSignatureSpan">(words)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">passphraseToBytes = function (words) {
+  if (!Array.isArray(words)) {
+    throw new Error(&#x27;Input must be an array.&#x27;)
+  }
+
+  const bytes = Buffer.alloc(words.length * 2)
+
+  words.forEach((word, index) =&#x3e; {
+    if (typeof word !== &#x27;string&#x27;) {
+      throw new Error(&#x27;Word must be a string.&#x27;)
+    }
+    const wordIndex = bs(wordlist, word.toLowerCase(), (a, b) =&#x3e; {
+      if (a === b) {
+        return 0
+      }
+      return a &#x3e; b ? 1 : -1
+    })
+    if (wordIndex &#x3c; 0) {
+      throw new Error(`Invalid word: ${word}`)
+    }
+    bytes[2 * index] = Math.floor(wordIndex / 256)
+    bytes[2 * index + 1] = wordIndex % 256
+  })
+
+  return bytes
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+## Docs
+
+NOTE: When used in the browser, `Buffer` is replaced with `window.Uint8Array`.
+
+* [niceware](#exp_module_niceware--niceware) ⏏
+    * [.bytesToPassphrase(bytes)](#module_niceware--niceware.bytesToPassphrase) ⇒ &#x3c;code&#x3e;Array.&#x26;lt;string&#x26;gt;&#
+x3c;/code&#x3e;
+    * [.<span class="apidocCodeKeywordSpan">passphraseToBytes</span>(words)](#module_niceware--niceware.passphraseToBytes) ⇒ &#x3c
+;code&#x3e;Buffer&#x3c;/code&#x3e;
+    * [.generatePassphrase(size)](#module_niceware--niceware.generatePassphrase) ⇒ &#x3c;code&#x3e;Array.&#x26;lt;string&#x26;gt
+;&#x3c;/code&#x3e;
+
+&#x3c;a name=&#x22;exp_module_niceware--niceware&#x22;&#x3e;&#x3c;/a&#x3e;
+
+### niceware ⏏
+**Kind**: Exported constant
+&#x3c;a name=&#x22;module_niceware--niceware.bytesToPassphrase&#x22;&#x3e;&#x3c;/a&#x3e;
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>

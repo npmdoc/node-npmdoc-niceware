@@ -1,0 +1,16 @@
+<svg height="206" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect height="206" fill="#555" width="720"></rect>
+<text fill="#7f7" font-family="Courier New" font-size="12" xml:space="preserve">
+<tspan x="10" y="26">  0.  2017-04-07 07:03:11 +0000  1696296 bytes  .</tspan>
+<tspan x="10" y="42">  1.  2017-04-07 07:03:11 +0000     1060 bytes  LICENSE</tspan>
+<tspan x="10" y="58">  2.  2017-04-07 07:03:11 +0000     4255 bytes  README.md</tspan>
+<tspan x="10" y="74">  3.  2017-04-07 07:03:11 +0000   870328 bytes  browser/niceware.js</tspan>
+<tspan x="10" y="90">  4.  2017-04-07 07:03:11 +0000     1852 bytes  docs/api.md</tspan>
+<tspan x="10" y="106">  5.  2017-04-07 07:03:11 +0000     5287 bytes  index.html</tspan>
+<tspan x="10" y="122">  6.  2017-04-07 07:03:11 +0000     2723 bytes  lib/main.js</tspan>
+<tspan x="10" y="138">  7.  2017-04-07 07:03:11 +0000   804721 bytes  lib/wordlist.js</tspan>
+<tspan x="10" y="154">  8.  2017-04-07 07:03:11 +0000     3129 bytes  package.json</tspan>
+<tspan x="10" y="170">  9.  2017-04-07 07:03:11 +0000       38 bytes  test.html</tspan>
+<tspan x="10" y="186"> 10.  2017-04-07 07:03:11 +0000     2903 bytes  test/mainTest.js</tspan>
+</text>
+</svg>
